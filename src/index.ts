@@ -121,7 +121,6 @@ async function run() {
   } else if (options["sendTx"]) {
     const txRaw = fs.readFileSync(options["sendTx"]);
     const tx = JSONbig.parse(txRaw);
-    console.log(tx);
 
     const txReceipt = await omgcli.sendDecodedTx(tx);
     Util.printOMGBlockExplorerLink(txReceipt.txhash, config);
