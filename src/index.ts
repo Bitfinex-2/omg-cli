@@ -120,7 +120,8 @@ async function run() {
     console.log(omgcli.web3.utils.keccak256(options["generateTxHash"]));
   } else if (options["sendTx"]) {
     const txRaw = fs.readFileSync(options["sendTx"]);
-    const tx = JSON.parse(txRaw);
+    const tx = JSONbig.parse(txRaw);
+    console.log(tx);
 
     const txReceipt = await omgcli.sendDecodedTx(tx);
     Util.printOMGBlockExplorerLink(txReceipt.txhash, config);
