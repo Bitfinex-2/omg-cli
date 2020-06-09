@@ -1,6 +1,6 @@
 ## omg-cli
 
-[![CircleCI](https://circleci.com/gh/omisego/omg-cli.svg?style=svg)](https://circleci.com/gh/omisego/omg-cli)
+[![CircleCI](https://circleci.com/gh/omgnetwork/omg-cli.svg?style=svg)](https://circleci.com/gh/omgnetwork/omg-cli)
 
 This is a command line tool to interact with the OMG network and it's based on [omg-js](https://github.com/omisego/omg-js). The main intention behind it is to enable easier security testing by isolating end points and by providing callable interfaces for both the contracts as well as the watcher component.
 
