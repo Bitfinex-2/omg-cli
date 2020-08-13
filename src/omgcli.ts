@@ -24,6 +24,7 @@ export class OMGCLI {
     this.watcherInfo = new ChildChain({
       watcherUrl: config.watcher_info_url,
       watcherProxyUrl: config.watcher_proxy_url,
+      plasmaContractAddress: config.plasmaframework_contract_address
     });
     this.rootChain = new RootChain({
       web3,

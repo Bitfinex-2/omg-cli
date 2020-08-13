@@ -10,7 +10,7 @@
     "linter": "npx eslint --ext .js,.ts ./src ./tests"
   },
   "dependencies": {
-    "@omisego/omg-js": "v3.0.3-0.4.5",
+    "@omisego/omg-js": "v4.0.1-1.0.0",
     "@types/jest": "^24.9.1",
     "@types/mocha": "^7.0.2",
     "async": "^3.1.1",
