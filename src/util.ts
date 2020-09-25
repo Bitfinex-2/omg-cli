@@ -42,4 +42,38 @@ export class Util {
       `TX on OMG Network: ${config.block_explorer_url}transaction/${hash}`
     );
   }
+
+
+  static async getLogs(
+    contract: any,
+    startBlockNumber: number,
+    endBlockNumber: number,
+    events: string[]
+  ) {
+    const interval = 100000;
+
+    let logs: any = [];
+    if (startBlockNumber !== endBlockNumber) {
+      for (let i: number = startBlockNumber; i < endBlockNumber; i += interval) {
+        let toBlockNumber = i + interval;
+        if (i + interval > endBlockNumber) {
+          toBlockNumber = endBlockNumber;
+        }
+        try {
+          for (const event of events) {
+            logs = logs.concat(
+              await contract.getPastEvents(event, {
+                fromBlock: i,
+                toBlock: toBlockNumber,
+              })
+            );
+          }
+        } catch (err) {
+          console.log(`Error when fetching logs between ${i} and ${i + interval}`)
+        }
+      }
+    }
+
+    return logs;
+  }
 }

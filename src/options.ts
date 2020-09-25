@@ -70,6 +70,11 @@ const optionDefinitions = [
         description: "Auto challenge byzantine events",
       },
       {
+        name: "getExitLogs",
+        type: Boolean,
+        description: "Get all exit related events",
+      },
+      {
         name: "help",
         description: "Print this usage guide.",
         alias: "h",

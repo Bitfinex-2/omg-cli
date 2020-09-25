@@ -9,6 +9,7 @@ const config = require("../config.js");
 import { OMGCLI } from "./omgcli";
 import { Util } from "./util";
 import { Bot } from "./bot";
+import { utils } from "mocha";
 
 let optionsLists: object[] = [];
 
@@ -108,6 +109,27 @@ async function run() {
     } else {
       console.log(`Error: Could not add fees to the tx`);
     }
+  } else if (options["getExitLogs"]) {
+    // PaymentExitGame creation block 
+    const startBlock = Number(9687476);
+    const endBlock = Number(await omgcli.web3.eth.getBlockNumber());
+    const events: string[] = ["ExitStarted", "InFlightExitStarted"];
+    const paymentExitGame: any = await omgcli.rootChain.getPaymentExitGame();
+    const logs = await Util.getLogs(paymentExitGame.contract, startBlock, endBlock, events)
+
+    console.log(paymentExitGame.address)
+    for (const log of logs) {
+      console.log(`Checking tx hash: ${log.transactionHash}`)
+
+      const txDetails = await omgcli.web3.eth.getTransactionReceipt(log.transactionHash);
+
+      if (txDetails.contractAddress != null) {
+        console.log(`Found a contract creation tx: ${txDetails.contractAddress}`)
+      } else if (omgcli.web3.utils.toChecksumAddress(txDetails.to) != omgcli.web3.utils.toChecksumAddress(paymentExitGame.address)) {
+        console.log(`The target contract from the EOA is not the PaymentExitGame: ${txDetails.to}`)
+      }
+    }
+
   } else if (options["generateTx"]) {
     const utxos: number[] = options["generateTx"].split(",");
     const newTx = await omgcli.generateTx(omgcli.txOptions["from"], utxos);
